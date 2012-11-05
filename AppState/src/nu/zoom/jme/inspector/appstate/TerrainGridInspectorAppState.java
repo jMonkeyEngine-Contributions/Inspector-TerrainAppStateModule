@@ -29,15 +29,16 @@ package nu.zoom.jme.inspector.appstate;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.renderer.Camera;
 import com.jme3.terrain.geomipmap.TerrainGrid;
 import java.lang.management.ManagementFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import nu.zoom.jme.inspector.common.JMETerrainGridInspector;
 import nu.zoom.jme.inspector.common.JMXNames;
@@ -77,13 +78,7 @@ public class TerrainGridInspectorAppState extends AbstractAppState {
             ObjectName name = new ObjectName(JMXNames.TERRAIN_INSPECTOR_OBJECTNAME);
             log.log(Level.FINE, "Un-registering MBean with name {0}", new Object[]{name.getCanonicalName()});
             platformMBeanServer.unregisterMBean(name);
-        } catch (InstanceNotFoundException ex) {
-            log.log(Level.SEVERE, null, ex);
-        } catch (MBeanRegistrationException ex) {
-            log.log(Level.SEVERE, null, ex);
-        } catch (MalformedObjectNameException ex) {
-            log.log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
             log.log(Level.SEVERE, null, ex);
         }
         super.cleanup();

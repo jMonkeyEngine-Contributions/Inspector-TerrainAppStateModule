@@ -27,7 +27,6 @@
 package nu.zoom.jme.inspector.common;
 
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.terrain.geomipmap.LRUCache;
 import com.jme3.terrain.geomipmap.TerrainGrid;
 import com.jme3.terrain.geomipmap.TerrainGridListener;
@@ -57,17 +56,11 @@ public class JMETerrainGridInspector extends NotificationBroadcasterSupport impl
 
     @Override
     public void tileAttached(Vector3f cell, TerrainQuad quad) {
-        final float[] heightMap = quad.getHeightMap();
         final String cacheKey = createCacheKey(cell);
-        TerrainQuadInformation information =
-                new TerrainQuadInformation(
-                heightMap,
-                cell,
-                quad.getTerrainSize());
-        this.cache.put(cacheKey, information);
+        createCacheEntry(cell, quad, cacheKey);
         log.log(Level.FINER,
-                "Cache key {0} used to put array {1} in cache",
-                new Object[]{cacheKey, heightMap});
+                "Cache key {0} used to put quad {1} in cache",
+                new Object[]{cacheKey, quad});
     }
 
     @Override
@@ -79,7 +72,13 @@ public class JMETerrainGridInspector extends NotificationBroadcasterSupport impl
 
         final Vector3f tileCell = this.terrainGrid.getCurrentCell();
         final String cacheKey = createCacheKey(tileCell);
-        final TerrainQuadInformation cachedTile = this.cache.get(cacheKey);
+        TerrainQuadInformation cachedTile = this.cache.get(cacheKey);
+        if (cachedTile == null) {
+            log.log(Level.FINER,
+                    "Cache key {0} not found in cache, trying to read directly from grid",
+                    cacheKey);
+            cachedTile = readQuadFromGridAndCacheIt(cacheKey, tileCell);
+        }
         log.log(Level.FINER,
                 "Cache key {0} retrieved cached array {1}",
                 new Object[]{cacheKey, cachedTile});
@@ -88,5 +87,26 @@ public class JMETerrainGridInspector extends NotificationBroadcasterSupport impl
 
     private String createCacheKey(final Vector3f tileCell) {
         return tileCell.x + "|" + tileCell.z;
+    }
+
+    private TerrainQuadInformation createCacheEntry(
+            final Vector3f cell,
+            final TerrainQuad quad,
+            final String cacheKey) {
+        TerrainQuadInformation information =
+                new TerrainQuadInformation(
+                quad.getHeightMap(),
+                cell,
+                quad.getTerrainSize());
+        this.cache.put(cacheKey, information);
+        return information;
+    }
+
+    private TerrainQuadInformation readQuadFromGridAndCacheIt(
+            final String cacheKey,
+            final Vector3f tileCell) {
+        TerrainQuad terrainQuadAt =
+                this.terrainGrid.getGridTileLoader().getTerrainQuadAt(tileCell);
+        return createCacheEntry(tileCell, terrainQuadAt, cacheKey);
     }
 }
