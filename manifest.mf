@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: nu.zoom.jme.inspector.appstate
+OpenIDE-Module-Implementation-Version: 0
+OpenIDE-Module-Layer: nu/zoom/jme/inspector/appstate/layer.xml
+OpenIDE-Module-Localizing-Bundle: nu/zoom/jme/inspector/appstate/Bundle.properties
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE library PUBLIC "-//NetBeans//DTD Library Declaration 1.0//EN" "http://www.netbeans.org/dtds/library-declaration-1_0.dtd">
+<library version="1.0">
+    <name>Inspector_app_state</name>
+    <type>j2se</type>
+    <localizing-bundle>nu.zoom.jme.inspector.appstate.Bundle</localizing-bundle>
+    <volume>
+        <type>classpath</type>
+        <resource>jar:nbinst://nu.zoom.jme.inspector.appstate/libs/InspectorAppState.jar!/</resource>
+    </volume>
+    <volume>
+        <type>src</type>
+        <resource>jar:nbinst://nu.zoom.jme.inspector.appstate/sources/Inspector_app_state-src.zip!/</resource>
+    </volume>
+    <volume>
+        <type>javadoc</type>
+        <resource>jar:nbinst://nu.zoom.jme.inspector.appstate/sources/Inspector_app_state-javadoc.zip!/</resource>
+    </volume>
+</library>
