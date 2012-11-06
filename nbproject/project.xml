@@ -21,8 +21,8 @@
                 <package>nu.zoom.jme.inspector.common</package>
             </public-packages>
             <class-path-extension>
-                <runtime-relative-path>ext/InspectorAppState.jar</runtime-relative-path>
-                <binary-origin>./AppState/dist/InspectorAppState.jar</binary-origin>
+                <runtime-relative-path>ext/InspectorTerrainAppState.jar</runtime-relative-path>
+                <binary-origin>./AppState/dist/InspectorTerrainAppState.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

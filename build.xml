@@ -4,26 +4,17 @@
 <!-- If you delete this file and reopen the project it will be recreated. -->
 <project name="nu.zoom.jme.inspector.appstate" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project nu.zoom.jme.inspector.appstate.</description>
-    <property name="original.project.dir" value="./AppState"/>
-    <property name="original.project.jar"
-              value="${original.project.dir}/dist/InspectorAppState.jar"/>
-    
     <import file="nbproject/build-impl.xml"/>
-
-    <target name="release">
-        <echo message="Building ${original.project.dir}"/>
-        <ant dir="${original.project.dir}" usenativebasedir="true"
-             target="jar" inheritall="false" inheritrefs="false"/>
-        <echo message="Done building ${original.project.dir}"/>
-        <copy todir="${cluster}/modules/ext"
-            file="${original.project.jar}"/>
+    
+    <target name="init" depends="basic-init,files-init,build-init,-javac-init,-build-subproject"/>
+    <target name="-build-subproject">
+        <ant dir="./AppState" inheritall="false" target="jar"/>
+        <copy file="./AppState/dist/InspectorTerrainAppState.jar" todir="release/libs"/>
     </target>
-
+    
 
     <target name="clean" depends="projectized-common.clean">
-        <echo message="Cleaning ${original.project.dir}"/>
-        <ant dir="${original.project.dir}" usenativebasedir="true"
-             target="clean" inheritall="false" inheritrefs="false"/>
-        <echo message="Done cleaning ${original.project.dir}"/>
+        <ant dir="./AppState" inheritall="false" target="clean" />    
     </target>    
+    
 </project>
