@@ -8,7 +8,9 @@
     
     <target name="init" depends="basic-init,files-init,build-init,-javac-init,-build-subproject"/>
     <target name="-build-subproject">
-        <ant dir="./AppState" inheritall="false" target="jar"/>
+        <ant dir="./AppState" inheritall="false" target="jar">
+		<property name="platforms.default_platform.home" value="${platforms.default_platform.home} />
+	</ant>
         <copy file="./AppState/dist/InspectorTerrainAppState.jar" todir="release/modules/ext"/>
     </target>
     
