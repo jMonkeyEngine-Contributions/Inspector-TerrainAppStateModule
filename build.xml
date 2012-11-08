@@ -6,17 +6,23 @@
     <description>Builds, tests, and runs the project nu.zoom.jme.inspector.appstate.</description>
     <import file="nbproject/build-impl.xml"/>
     
-    <target name="init" depends="basic-init,files-init,build-init,-javac-init,-build-subproject"/>
+    <target name="platform-jdk6" unless="platforms.default_platform.home">
+        <property name="platforms.default_platform.home" value="${platforms.JDK_1.6.home}"/>
+    </target>
+    
+    <target name="init" depends="platform-jdk6, basic-init,files-init,build-init,-javac-init,-build-subproject"/>
     <target name="-build-subproject">
         <ant dir="./AppState" inheritall="false" target="jar">
-		<property name="platforms.default_platform.home" value="${platforms.default_platform.home} />
-	</ant>
+            <property name="platforms.default_platform.home" location="${platforms.default_platform.home}" />
+        </ant>
         <copy file="./AppState/dist/InspectorTerrainAppState.jar" todir="release/modules/ext"/>
     </target>
     
 
-    <target name="clean" depends="projectized-common.clean">
-        <ant dir="./AppState" inheritall="false" target="clean" />    
+    <target name="clean" depends="platform-jdk6, projectized-common.clean">
+        <ant dir="./AppState" inheritall="false" target="clean">
+            <property name="platforms.default_platform.home" location="${platforms.default_platform.home}" />
+        </ant>    
     </target>    
     
 </project>
