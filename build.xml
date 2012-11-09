@@ -6,12 +6,12 @@
     <description>Builds, tests, and runs the project nu.zoom.jme.inspector.appstate.</description>
     <import file="nbproject/build-impl.xml"/>
     
-    <target name="platform-jdk6" unless="platforms.default_platform.home">
+    <target name="platform-jdk6" unless="platforms.default_platform.home" depends="init">
         <property name="platforms.default_platform.home" value="${platforms.JDK_1.6.home}"/>
     </target>
     
-    <target name="init" depends="platform-jdk6, basic-init,files-init,build-init,-javac-init,-build-subproject"/>
-    <target name="-build-subproject">
+    <target name="init" depends="basic-init,files-init,build-init,-javac-init,-build-subproject"/>
+    <target name="-build-subproject" depends="platform-jdk6">
         <ant dir="./AppState" inheritall="false" target="jar">
             <property name="platforms.default_platform.home" location="${platforms.default_platform.home}" />
         </ant>
