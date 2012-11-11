@@ -7,6 +7,7 @@
     <import file="nbproject/build-impl.xml"/>
     
     <target name="platform-jdk6" unless="platforms.default_platform.home">
+	<echoproperties />
         <property name="platforms.default_platform.home" value="${platforms.JDK_1.6.home}"/>
     </target>
     
