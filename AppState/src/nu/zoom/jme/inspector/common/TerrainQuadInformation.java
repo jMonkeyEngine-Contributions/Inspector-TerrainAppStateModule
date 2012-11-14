@@ -27,6 +27,7 @@
 package nu.zoom.jme.inspector.common;
 
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
 import java.io.Serializable;
 
 /**
@@ -41,14 +42,17 @@ public class TerrainQuadInformation implements Serializable {
     private final float[] heightmap;
     private final Vector3f cell;
     private final int size;
+    private final String name;
 
     public TerrainQuadInformation(
             final float[] heightmap,
             final Vector3f cell,
-            final int size) {
+            final int size,
+            final String name) {
         this.heightmap = heightmap;
         this.cell = cell;
         this.size = size;
+        this.name = name;
     }
 
     /**
@@ -63,9 +67,9 @@ public class TerrainQuadInformation implements Serializable {
     }
 
     /**
-     * The terrain quad "ID" in the terrain grid. This is retreived from the
-     * TerrainGridListener when a new terrain quad is loaded by the terrain
-     * grid.
+     * The terrain "cell space" coordinates in the terrain grid. This is
+     * retreived from the TerrainGridListener when a new terrain quad is loaded
+     * by the terrain grid.
      *
      * @see
      * com.jme3.terrain.geomipmap.TerrainGridListener#tileAttached(com.jme3.math.Vector3f,
@@ -87,10 +91,21 @@ public class TerrainQuadInformation implements Serializable {
         return size;
     }
 
+    /**
+     * Get the name of the terrain quad.
+     *
+     * @see Spatial#getName()
+     * @return The spatial name or the string "&lt;null&gt;" if the spatial has
+     * no name or the terrain information isn't from a spatial.
+     */
+    public String getName() {
+        return name;
+    }
     @Override
     public String toString() {
-        return "TerrainQuadInformation{cell=" + cell
-                + ", size= " + size
-                + ", heightmap=" + heightmap + "}";
+        return "TerrainQuadInformation{name= " + this.name
+                + ", cell=" + this.cell
+                + ", size= " + this.size
+                + ", heightmap=" + this.heightmap + "}";
     }
 }
