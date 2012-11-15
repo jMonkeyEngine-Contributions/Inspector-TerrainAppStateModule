@@ -6,6 +6,6 @@
     <localizing-bundle>nu.zoom.jme.inspector.appstate.Bundle</localizing-bundle>
     <volume>
         <type>classpath</type>
-        <resource>jar:nbinst://nu.zoom.jme.inspector.appstate/ext/InspectorTerrainAppState.jar!/</resource>
+        <resource>jar:nbinst://nu.zoom.jme.inspector.appstate/modules/ext/InspectorTerrainAppState.jar!/</resource>
     </volume>
 </library>
